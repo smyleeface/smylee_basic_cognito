@@ -67,8 +67,11 @@ $('#loginform').submit(function(ev) {
             $( "#error_message" ).text("Incorrect username or password.");
         },
 
+        mfaRequired: function(codeDeliveryDetails) {
+            var verificationCode = prompt('Please input verification code' ,'');
+            cognitoUser.sendMFACode(verificationCode, this);
+        }
     });
-
 
 });
 
