@@ -22,14 +22,16 @@ if (cognitoUser != null) {
         $( "#login_success" ).html('session validity: ' + session.isValid() + '<br>Token: ' + session.getAccessToken().getJwtToken());
         $( "#error_message" ).html('&nbsp;');
         if (session.isValid()) {
-        	$("#li_logout").show();
-        	$("#loggedinlogin").html('You are logged in.');
-        	$("#loginform").hide();
+        	$("#li_upload").show();
+            $("#li_logout").show();
+            $("#loggedinlogin").html('You are logged in.');
+            $("#loginform").hide();
         }
     });
 }else{
 	console.log('session::'+cognitoUser);
     $("#li_logout").hide();
+    $("#li_upload").hide();
 }
 
 //login form
@@ -57,6 +59,7 @@ $('#loginform').submit(function(ev) {
             $( "#login_success" ).html(result.getAccessToken().getJwtToken());
             $( "#error_message" ).html("&nbsp;");
             $("#li_logout").show();
+            $("#li_upload").show();
         	$("#loggedinlogin").html('You are logged in.');
         	$("#loginform").hide();
         },
@@ -165,6 +168,36 @@ $('#verifyform').submit(function(ev) {
 
 });
 
+
+//log out the current user
+$('#uploadform').submit(function(ev) {
+    ev.preventDefault();
+
+    // files = ev.target.files;
+    files = $('#files')[0].files;
+    var indx = "";
+    var name = indx;
+    var xtn = indx;
+    for (var i = 0; i < files.length; i++){
+          indx = files[i].name.lastIndexOf('.')
+        name = files[i].name.substr( 0, indx) || files[i].name;
+        xtn = files[i].name.substr( indx) || "";
+       _e_.add({
+          name: name+xtn,
+          file: files[i],
+          complete: function(){
+             console.log('complete................yay!'+name);
+          },
+          progress: function(progress){
+             console.log('making progress: ' + progress+" :: "+name);
+          }
+       });
+    }
+
+    $(ev.target).val('');
+});
+
+
 //log out the current user
 $('#logoutform').submit(function(ev) {
 	ev.preventDefault();
@@ -177,6 +210,7 @@ $('#logoutform').submit(function(ev) {
 	    $( "#login_success" ).html("LOGGED OUT... ");
 	    $( "#error_message" ).html('&nbsp;');
 	    $("#li_logout").hide();
+        $("#li_upload").hide();
 		$("#loggedinlogin").html('');
 		$("#loginform").show();
 
@@ -185,5 +219,6 @@ $('#logoutform').submit(function(ev) {
 	    $( "#login_success" ).html("not signed in...");
 	    $( "#error_message" ).html('&nbsp;');
 	    $("#li_logout").hide();
+        $("#li_upload").hide();
 	}
 });

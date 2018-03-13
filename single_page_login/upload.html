@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+   <head>
+
+      <title>Evaporate Example</title>
+
+      <style>
+
+      </style>
+
+      <script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+      <script language="javascript" type="text/javascript" src="js/evaporate.js"></script>
+
+   </head>
+   <body>
+
+      <div>
+         <input type="file" id="files"  multiple />
+         <input type="submit" id="submitbutton">
+      </div>
+
+      <script language="javascript">
+
+         var files;
+
+         var _e_ = new Evaporate({
+            signerUrl: 'https://lthv8ocvtl.execute-api.us-west-2.amazonaws.com/smylee_com_prod/signer',
+            timeUrl: 'https://lthv8ocvtl.execute-api.us-west-2.amazonaws.com/smylee_com_prod/timer',
+            aws_key: 'ASIAJKDOE44DMRICFCZQ',
+            loggin: true,
+            maxRetryBackoffSecs: 5000000,
+            retryBackoffPower: 54444,
+            bucket: 'smylee.com.assets/images',
+            aws_url: 'https://s3-us-west-2.amazonaws.com'
+         });
+
+         $('#submitbutton').click(function(evt){
+            // files = evt.target.files;
+            files = $('#files')[0].files;
+            var indx = "";
+            var name = indx;
+            var xtn = indx;
+            for (var i = 0; i < files.length; i++){
+                  indx = files[i].name.lastIndexOf('.')
+                name = files[i].name.substr( 0, indx) || files[i].name;
+                xtn = files[i].name.substr( indx) || "";
+               _e_.add({
+                  name: name+'_' + Math.floor(1000000000*Math.random())+xtn,
+                  file: files[i],
+                  complete: function(){
+                     console.log('complete................yay!'+name);
+                  },
+                  progress: function(progress){
+                     console.log('making progress: ' + progress+" :: "+name);
+                  }
+               });
+            }
+
+            $(evt.target).val('');
+
+         });
+
+      </script>
+
+   </body>
+</html>
