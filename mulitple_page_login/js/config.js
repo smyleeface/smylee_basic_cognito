@@ -1,13 +1,13 @@
 window._config = {
     cognito: {
-        userPoolId: 'USER_POOL_ID', // e.g. us-east-2_uXboG5pAb
-        userPoolClientId: 'USER_POOL_CLIENT_ID', // e.g. 25ddkmj4v6hfsfvruhpfi7n4hv
-        region: 'REGION', // e.g. us-east-2
+        userPoolId: 'us-west-2_DF0PI8Apo', // e.g. us-east-2_uXboG5pAb
+        userPoolClientId: '783739v04jdtvp7lfblj6imgks', // e.g. 25ddkmj4v6hfsfvruhpfi7n4hv
+        region: 'us-west-2', // e.g. us-east-2
         identityPoolId: 'us-west-2:50d3394f-46cc-4f2a-8d84-7ce89c28d6ab', // e.g. us-west-2:50d3394f-46cc-4f2a-8d84-5ec78e92b9cd
-        idp: 'cognito-idp.REGION.amazonaws.com/USER_POOL_ID',
-        customRoleArn: 'ARN OF THE IAM ROLE ASSIGNED TO THE COGNITO GROUP THE USER IS PART OF' //If using permissions with user groups
+        idp: 'cognito-idp.us-west-2.amazonaws.com/us-west-2_DF0PI8Apo',
+        customRoleArn: 'arn:aws:iam::952671759649:role/lambdasharp-cognito-authenticated-role'
     },
     upload: {
-        bucketName:  'BUCKET NAME'
+        bucketName:  'smylee.com.upload'
     }
 };
