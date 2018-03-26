@@ -1,0 +1,25 @@
+
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Cognito Application - User Pool Client
+
+Parameters:
+  UserPoolClient:
+    Type: String
+
+Resources:
+
+  CognitoUserPoolClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      ClientName: !Ref UserPoolClient
+      UserPoolId: !ImportValue cognito-user-pool-id
+      GenerateSecret: false
+
+Outputs:
+
+  CognitoUserPoolClient:
+    Description: The client id of the user pools id
+    Value: !Ref CognitoUserPoolClient
+    Export:
+      Name: cognito-user-pool-client-id

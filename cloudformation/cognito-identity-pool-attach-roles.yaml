@@ -1,0 +1,13 @@
+
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Cognito Application - Identity Pool Attach Roles
+
+Resources:
+
+   CognitoIdentityPoolAuthenticatedRole:
+      Type: "AWS::Cognito::IdentityPoolRoleAttachment"
+      Properties:
+        IdentityPoolId: !ImportValue cognito-identity-pool-id
+        Roles:
+          authenticated: !ImportValue cognito-identity-pool-authenticated-role-arn
